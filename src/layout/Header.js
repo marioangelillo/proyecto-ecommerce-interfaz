@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalCarrito from './ModalCarrito';
 import ModalUsuario from './ModalUsuario';
 
-export default function Header({autenticado, setAutenticado, usuarioAuth, setUsuarioAuth, setToken}) {
+export default function Header({autenticado, setAutenticado, usuarioAuth, setUsuarioAuth, token, setToken}) {
 
   const [showCarrito, setShowCarrito] = useState(false);
   const handleCloseCarrito = () => setShowCarrito(false);
@@ -19,7 +19,9 @@ export default function Header({autenticado, setAutenticado, usuarioAuth, setUsu
       localStorage.removeItem('usuario');
       localStorage.removeItem('token');
       setAutenticado(false);
+      window.location.reload();
     }
+    
   }
 
     return (
@@ -27,18 +29,19 @@ export default function Header({autenticado, setAutenticado, usuarioAuth, setUsu
         <Navbar className="pt-4 pb-4" bg="light" expand="lg">
           <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse className="float-sm-left" id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
+              {token ? <Nav.Link href="/admin">Admin</Nav.Link> : null}
               <Nav.Link href="/productos">Productos</Nav.Link>
               <Nav.Link href="/servicios">Servicios</Nav.Link>
               <Nav.Link href="/contacto">Contacto</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl type="text" placeholder="Buscar" className="mr-sm-2" />
-              <Button variant="outline-success"><FontAwesomeIcon icon={["fa", "search"]} /></Button>  
+              <Button className="mt-2 mt-md-0" variant="outline-success"><FontAwesomeIcon icon={["fa", "search"]} /></Button>  
 
-              <ButtonGroup className="ml-2">    
+              <ButtonGroup className="mt-2 mt-md-0 ml-2 float-right">    
                 { !autenticado ? 
                   <Button variant="outline-success" onClick={handleShowUsuario}><FontAwesomeIcon icon={["fa", "user"]}/></Button>
                 : 

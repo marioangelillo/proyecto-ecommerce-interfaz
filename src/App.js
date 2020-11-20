@@ -6,6 +6,8 @@ import Footer from './layout/Footer';
 import Home from './components/Home';
 import Productos from './components/Productos';
 import Registro from './components/Registro';
+import Admin from './components/Admin';
+
 
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -45,9 +47,15 @@ function App() {
   const [ token , setToken ] = useState(localStorage.getItem('token') || null ) ;
   const [ usuarioAuth , setUsuarioAuth ] = useState(JSON.parse(localStorage.getItem('usuario')) || null ) ;
   const [ autenticado , setAutenticado ] = useState(localStorage.getItem('token') ? true : false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [categoria, setCategoria] = useState({
+    nombre: ''
+  });
+  const [categorias, setCategorias] = useState([]);
 
-  console.log(autenticado);
-  console.log(usuarioAuth);
+  //console.log(autenticado);
+  //console.log(usuarioAuth);
+  
 
   useEffect(() => {
     if(usuarioAuth) {
@@ -60,17 +68,42 @@ function App() {
   useEffect(() => {
     if(token) {
       localStorage.setItem('token',token) ;
+      
     }else{
       localStorage.removeItem('token');
     }
   }, [token]) ;
+
+  useEffect(() => {
+    listarCategorias();
+  }, [])
+
+  const listarCategorias = async () =>{
+    const solicitud = await fetch('http://localhost:4000/api/admin/listarcategorias',{
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token
+      }
+      });
+      //console.log(solicitud);
+      const respuesta = await solicitud.json();  
+      if(solicitud.ok){
+        console.log(respuesta);
+        setCategorias(respuesta);        
+      }else{
+        alert(respuesta.msg);
+      } 
+  }
+ 
+
 
   return (
    <Fragment>
     <Header 
       autenticado={autenticado} setAutenticado={setAutenticado}
       usuarioAuth={usuarioAuth} setUsuarioAuth={setUsuarioAuth}
-      setToken={setToken}
+      token={token} setToken={setToken}
+      setIsAdmin={setIsAdmin}
     />
     <BrowserRouter>
       <Switch>
@@ -88,7 +121,7 @@ function App() {
         <Route 
           path="/productos"
           exact
-          component={Productos}
+          component={() => <Productos categorias={categorias} />}
         />
         <Route exact path="/registro">
           {
@@ -101,6 +134,20 @@ function App() {
             : <Redirect to = "/" />
           }
         </Route>
+
+        <Route exact path="/admin">
+          {
+            token ?
+            <Admin
+              categoria={categoria} setCategoria={setCategoria}
+              categorias={categorias} setCategorias={setCategorias}
+              listarCategorias={listarCategorias}
+            />
+            : <Redirect to = "/" />
+          }
+          
+        </Route>
+
       </Switch>
     </BrowserRouter>
 

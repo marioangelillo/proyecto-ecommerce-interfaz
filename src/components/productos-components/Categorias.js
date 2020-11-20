@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Row} from 'react-bootstrap';
 
-export default function Categorias() {
+export default function Categorias({categorias}) {
 
     return (
         <Row className="d-flex justify-content-between">
@@ -10,11 +10,13 @@ export default function Categorias() {
                 <Form.Group controlId="exampleForm.SelectCustom">
                     <Form.Control as="select">
                     <option value="" selected disabled>Categorias</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {
+                        categorias.map(cat => {
+                            return(
+                                <option>{cat.nombre}</option>
+                            )
+                        })
+                    } 
                     </Form.Control>
                 </Form.Group>
             </Form>

@@ -44,7 +44,6 @@ export default function Registro({setToken, setUsuarioAuth, setAutenticado}) {
 
         //console.log(solicitud);
         const respuesta = await solicitud.json();
-        console.log(respuesta)
         //console.log(respuesta);
 
         if (solicitud.ok) {
@@ -68,7 +67,7 @@ export default function Registro({setToken, setUsuarioAuth, setAutenticado}) {
             setToken(respuesta.token)
 
             // Redirigir al home
-            //history.push("/");
+            //window.location.href = window.location.href;
 
         }else{
             alert(respuesta.msg);

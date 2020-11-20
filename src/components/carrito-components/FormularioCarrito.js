@@ -31,7 +31,7 @@ export default function FormularioCarrito() {
                     />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formEmail">
-                    <Form.Label>Correo Electrónico</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control 
                         type="email"
                         name="email"                    
