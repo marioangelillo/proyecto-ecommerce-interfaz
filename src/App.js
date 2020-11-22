@@ -52,6 +52,8 @@ function App() {
     nombre: ''
   });
   const [categorias, setCategorias] = useState([]);
+  const [producto, setProducto] = useState({});
+  const [productos, setProductos] = useState([]);
 
   //console.log(autenticado);
   //console.log(usuarioAuth);
@@ -94,6 +96,28 @@ function App() {
         alert(respuesta.msg);
       } 
   }
+
+  useEffect(() => {
+    listarProductos();
+  }, [])
+
+  const listarProductos = async () =>{
+    const solicitud = await fetch('http://localhost:4000/api/admin/listarproductos',{
+      headers: {        
+        'Content-Type': 'application/json',
+        'x-auth-token': token
+      }
+      });
+      //console.log(solicitud);
+      const respuesta = await solicitud.json(); 
+      //console.log(respuesta); 
+      if(solicitud.ok){
+        console.log(respuesta);
+        setProductos(respuesta);        
+      }else{
+        alert(respuesta.msg);
+      }
+  }
  
 
 
@@ -109,14 +133,12 @@ function App() {
       <Switch>
         <Route 
           path="/"
-          exact
-          component={Home}
-          /*component={() =>
+          exact          
+          component={() =>
           <Home 
-            setUsuarioAuth={setUsuarioAuth}
-            setAutenticado={setAutenticado}
+          productos={productos}
           />
-          }*/
+          }
         />
         <Route 
           path="/productos"
@@ -142,6 +164,8 @@ function App() {
               categoria={categoria} setCategoria={setCategoria}
               categorias={categorias} setCategorias={setCategorias}
               listarCategorias={listarCategorias}
+              producto={producto} setProducto={setProducto}
+              productos={productos} setProductos={setProductos}
             />
             : <Redirect to = "/" />
           }

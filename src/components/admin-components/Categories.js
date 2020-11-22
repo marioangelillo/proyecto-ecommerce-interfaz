@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Form, Button, Table, Row } from 'react-bootstrap';
+import { Form, Button, Table, Row, Col } from 'react-bootstrap';
 
-export default function AddCategories({categoria, setCategoria, categorias, setCategorias}) {
+export default function Categories({categoria, setCategoria, categorias, setCategorias}) {
 
 
     const {nombre} = categoria;
@@ -45,49 +45,79 @@ export default function AddCategories({categoria, setCategoria, categorias, setC
         }
     }
 
+    const eliminarCategoria = async (id) =>{
+        //alert(id);        
+         if(window.confirm('¿Esta seguro que desea eliminar la categoria?')){
+            const solicitud = await fetch('http://localhost:4000/api/admin/eliminarcategorias/'+id,{
+            method : 'DELETE',           
+            headers : {
+            'Content-Type' : 'application/json',
+            }
+        })        
+        const respuesta = await solicitud.json();
+        if(solicitud.ok){            
+            // Setear al estado (ES PARA QUE NO TENGAMOS QUE RECARGAR LA PAG PARA VER LOS CAMBIOS)
+            setCategorias([
+                ...categorias.filter(cat => cat._id !== id)
+            ]);
+        }else{
+            alert(respuesta.msg);
+        }
+        
+    }
+        
+    
+    }
+
     return (
         <>   
-            <Row>
-                <Form className="w-75" onSubmit={handleSubmitCategoria}>
-                    <Form.Group controlId="nombreProduct">
-                        <Form.Label>Agregar categoria</Form.Label>
-                        <Form.Control
-                        type="name"
-                        name="nombre"
-                        value={nombre}
-                        onChange={handleChangeCategoria}
-                        placeholder="Nombre de la categoria"
-                        required
-                        />
-                    </Form.Group>
+                <h5>Agregar categoría</h5>
+                <Form onSubmit={handleSubmitCategoria}>    
+                    <Row>  
+                        <Col xs={12} md={9}>              
+                        <Form.Group controlId="nombreProduct">                            
+                            <Form.Control
+                            type="name"
+                            name="nombre"
+                            value={nombre}
+                            onChange={handleChangeCategoria}
+                            placeholder="Nombre de la categoria"
+                            required
+                            />
+                        </Form.Group>
+                        </Col>
 
-                    <Button variant="primary" type="submit">Agregar</Button>
-
+                        <Col xs={12} md={3}>              
+                            <Button variant="primary w-100" type="submit">Agregar</Button>
+                        </Col>
+                    </Row>
                 </Form>
-            </Row>
+            
             
 
             <div className="table-responsive my-2">
             <Table striped bordered hover>
                 <thead>
-                    <tr>
-                    <th>#</th>
+                    <tr>                    
                     <th>Nombre</th>
                     <th>Acciones</th>                    
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>                    
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>                    
-                    </tr>
-                    
+                    {
+                        categorias.map(cat =>{
+                            return(
+                                <tr key={cat._id}>
+                                    <td>{cat.nombre}</td>
+                                    <td>
+                                        <Button variant="danger btn-sm mr-1" onClick={() => eliminarCategoria(cat._id)}>Borrar</Button>
+                                        <Button variant="warning btn-sm">Modificar</Button>
+                                    </td>                    
+                                </tr>
+                            )
+                        })
+                    }
+                                       
                 </tbody>
             </Table>
         </div>

@@ -5,7 +5,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 
-export default function ProductosDestacados() {
+export default function ProductosDestacados({productos}) {
 
     const options = {
         margin: 30,
@@ -46,6 +46,27 @@ export default function ProductosDestacados() {
                 {...options}                
             >
                 {/*<div className="item"><img className="img-fluid" src="https://picsum.photos/id/1/300/500" style={{maxHeight: '500px'}}></img></div>*/}
+                {productos.map(prod =>{
+                    return(
+                        <div className="item">
+                            <Card key={prod._id}>
+                                <Card.Img variant="top" src={prod.imagen} />
+                                <Card.Body>
+                                    <Card.Title className="text-center">{prod.nombre.toUpperCase()}</Card.Title>
+                                    <Card.Text className="d-flex justify-content-between">
+                                    <Button variant="outline-dark">-</Button>
+                                    <input className="w-50 text-center" defaultValue="1" readOnly></input>
+                                    <Button variant="outline-dark">+</Button>
+                                    </Card.Text>
+                                    <div className="d-flex justify-content-between">
+                                        <Button variant="outline-success border-1" href="/productos">{prod.precio}</Button>
+                                        <Button variant="outline-success border-1">Comprar</Button>
+                                    </div>                            
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    )
+                })}
                 <div className="item">
                     <Card>
                         <Card.Img variant="top" src="https://picsum.photos/id/1/300/300" />
@@ -64,7 +85,7 @@ export default function ProductosDestacados() {
                     </Card>
                 </div>
 
-                <div className="item">
+                {/*<div className="item">
                     <Card>
                         <Card.Img variant="top" src="https://picsum.photos/id/2/300/300" />
                         <Card.Body>
@@ -116,7 +137,7 @@ export default function ProductosDestacados() {
                             </div> 
                         </Card.Body>
                     </Card>
-                </div>
+                </div>*/}
 
             </OwlCarousel>
         </>

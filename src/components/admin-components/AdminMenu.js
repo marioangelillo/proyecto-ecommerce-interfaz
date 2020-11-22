@@ -5,7 +5,8 @@ import AddProduct from './AddProduct';
 import Categories from './Categories';
 import Sales from './Sales';
 
-export default function AdminMenu({listarCategorias, categoria, setCategoria, categorias, setCategorias}) {
+export default function AdminMenu({listarCategorias, categoria, setCategoria, categorias, setCategorias,
+     producto, setProducto, productos, setProductos}) {
 
     return (
         <Container className="my-2" fluid>
@@ -30,10 +31,15 @@ export default function AdminMenu({listarCategorias, categoria, setCategoria, ca
                     <Col sm={9}>
                     <Tab.Content>
                         <Tab.Pane eventKey="first">
-                            <ProductList />
+                            <ProductList productos={productos} setProductos={setProductos}/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
-                            <AddProduct listarCategorias={listarCategorias} categorias={categorias} setCategorias={setCategorias}/>
+                            <AddProduct
+                             listarCategorias={listarCategorias}
+                             categorias={categorias} setCategorias={setCategorias}
+                             producto={producto} setProducto={setProducto}
+                             productos={productos} setProductos={setProductos}
+                            />
                         </Tab.Pane>
                         <Tab.Pane eventKey="tres">
                             <Categories
