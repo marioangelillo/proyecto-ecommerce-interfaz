@@ -22,8 +22,11 @@ export default function AddProduct({listarCategorias, categorias, setCategorias,
             alert('Debe completar todos los campos');            
         }
         
-        producto.imagen = "https://via.placeholder.com/300px300";
+        //producto.imagen = "https://via.placeholder.com/300px300";
         console.log(producto);
+        if(!producto.imagen){
+            producto.imagen = null;
+        }
 
         const solicitud = await fetch('http://localhost:4000/api/admin/agregarproductos',{
             method : 'POST',
@@ -45,7 +48,7 @@ export default function AddProduct({listarCategorias, categorias, setCategorias,
             descripcion: '',
             categoria: ''
             });
-
+            document.getElementById('FormNuevoProductoImagen').value = "";
             alert ('Producto creado correctamente');
             
             setProductos([...productos , producto])
@@ -53,8 +56,36 @@ export default function AddProduct({listarCategorias, categorias, setCategorias,
         }else{
             alert(respuesta.msg);
         }
+    }
 
-
+    const onChangeImagen = e =>{
+        if(e.target.files.length){
+            if(e.target.files[0].size > 4194304){
+                // 5242880 = 5MB
+                // 4194304 = 4MB
+                e.target.value=null;
+                alert('La imagen es demasiado grande');
+                setProducto({
+                    ...producto,
+                    imagen: null
+                });                
+                return;
+            } 
+            let reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+            reader.onloadend = () => {
+                setProducto({
+                    ...producto,
+                    imagen: reader.result
+                });
+            }
+            console.log(producto);
+        }else{
+            setProducto({
+                ...producto,
+                imagen: null
+            })            
+        }
     }
 
     return (
@@ -128,9 +159,11 @@ export default function AddProduct({listarCategorias, categorias, setCategorias,
             <Form.Group controlId="imagenProduct">
                 <Form.Label>Imagen</Form.Label>
                 <Form.Control
+                 id="FormNuevoProductoImagen"
                  type="file"
-                 value={imagen}
-                 onChange={handleChangeProducto}
+                 name="imagen"
+                 onChange={onChangeImagen}
+                 accept="image/png, image/jpeg"
                 />
             </Form.Group>
 

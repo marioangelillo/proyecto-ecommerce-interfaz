@@ -31,7 +31,7 @@ export default function AdminMenu({listarCategorias, categoria, setCategoria, ca
                     <Col sm={9}>
                     <Tab.Content>
                         <Tab.Pane eventKey="first">
-                            <ProductList productos={productos} setProductos={setProductos}/>
+                            <ProductList productos={productos} setProductos={setProductos} categorias={categorias}/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
                             <AddProduct
@@ -45,6 +45,7 @@ export default function AdminMenu({listarCategorias, categoria, setCategoria, ca
                             <Categories
                              categoria={categoria} setCategoria={setCategoria}
                              categorias={categorias} setCategorias={setCategorias}
+                             productos={productos} setProductos={setProductos}
                             />
                         </Tab.Pane>
                         <Tab.Pane eventKey="cuatro">

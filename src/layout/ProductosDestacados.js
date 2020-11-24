@@ -50,7 +50,12 @@ export default function ProductosDestacados({productos}) {
                     return(
                         <div className="item">
                             <Card key={prod._id}>
-                                <Card.Img variant="top" src={prod.imagen} />
+                                {
+                                    prod.imagen ?
+                                    <Card.Img variant="top" className="img-fluid" src={prod.imagen} style={{height: '300px'}}/>
+                                    : <Card.Img variant="top" className="img-fluid" src="https://via.placeholder.com/300px300" style={{height: '300px'}}/>
+
+                                }
                                 <Card.Body>
                                     <Card.Title className="text-center">{prod.nombre.toUpperCase()}</Card.Title>
                                     <Card.Text className="d-flex justify-content-between">
@@ -69,7 +74,7 @@ export default function ProductosDestacados({productos}) {
                 })}
                 <div className="item">
                     <Card>
-                        <Card.Img variant="top" src="https://picsum.photos/id/1/300/300" />
+                        <Card.Img variant="top" className="img-fluid" src="https://picsum.photos/id/1/300/300" style={{height: '300px'}}/>
                         <Card.Body>
                             <Card.Title className="text-center">Nombre Producto1</Card.Title>
                             <Card.Text className="d-flex justify-content-between">

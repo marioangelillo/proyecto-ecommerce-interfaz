@@ -5,16 +5,22 @@ import 'react-credit-cards/es/styles-compiled.css';
 
 export default function PagoCarrito() {
 
+    
+
+    const [number, setNumber] = useState('');
+    const [name, setName] = useState('');
+    const [expiry, setExpiry] = useState('');
+    const [cvc, setCvc] = useState('');
     const [focus, setFocus] = useState(''); 
 
-    const [card, setCard] = useState({
+    /*const [card, setCard] = useState({
       number: "",
       name: "",
       expiry: "",
       cvc: ""
     })
 
-    const {number, name, expiry, cvc} = card;
+    const {number, name, expiry, cvc} = card;*/
 
     return (
       <>  
@@ -34,6 +40,8 @@ export default function PagoCarrito() {
               type="tel"
               name="number"
               value={number}
+              onChange={e => setNumber(e.target.value)}
+              onFocus={e => setFocus(e.target.name)}
               placeholder="Número de tarjeta"
             />
 
@@ -42,6 +50,8 @@ export default function PagoCarrito() {
               type="text"
               name="name"
               value={name}
+              onChange={e => setName(e.target.value)}
+              onFocus={e => setFocus(e.target.name)}
               placeholder="Nombre y Apellido"
             />
 
@@ -50,6 +60,8 @@ export default function PagoCarrito() {
               type="text"
               name="expiry"
               value={expiry}
+              onChange={e => setExpiry(e.target.value)}
+              onFocus={e => setFocus(e.target.name)}
               placeholder="Fecha de expiración"
             />
             
@@ -59,6 +71,8 @@ export default function PagoCarrito() {
               name="cvc"
               placeholder="CVC"
               value={cvc}
+              onChange={e => setCvc(e.target.value)}
+              onFocus={e => setFocus(e.target.name)}
             />
 
             {/*<div className="float-right">
