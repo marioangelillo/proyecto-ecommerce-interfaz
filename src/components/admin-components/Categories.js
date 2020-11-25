@@ -120,7 +120,7 @@ export default function Categories({categoria, setCategoria, categorias, setCate
                         </Form.Group>
                         </Col>
 
-                        <Col xs={12} md={3}>                              
+                        <Col xs={12} md={3}>                                                          
                             <Button variant="primary w-100" type="submit" onClick={handleSubmitCategoria}>
                             {modificar ? 'Modificar' : 'Agregar'}
                             </Button>

@@ -28,8 +28,8 @@ export default function Header({autenticado, setAutenticado, usuarioAuth, setUsu
       <>
         <Navbar className="pt-4 pb-4" bg="light" expand="lg">
           <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse className="float-sm-left" id="basic-navbar-nav">
+          <Navbar.Toggle className="order-first" aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
               {token ? <Nav.Link href="/admin">Admin</Nav.Link> : null}

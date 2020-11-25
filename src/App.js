@@ -20,7 +20,8 @@ import {
   faShoppingCart,
   faSearch,
   faPlus,
-  faMinus
+  faMinus,
+  faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {
 	faFacebookF,
@@ -40,6 +41,7 @@ library.add(faShoppingCart);
 library.add(faSearch);
 library.add(faPlus);
 library.add(faMinus);
+library.add(faInfoCircle);
 
 
 function App() {
@@ -143,7 +145,7 @@ function App() {
         <Route 
           path="/productos"
           exact
-          component={() => <Productos categorias={categorias} />}
+          component={() => <Productos categorias={categorias} productos={productos} />}
         />
         <Route exact path="/registro">
           {
