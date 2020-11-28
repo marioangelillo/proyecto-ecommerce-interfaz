@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalCarrito from './ModalCarrito';
 import ModalUsuario from './ModalUsuario';
 
-export default function Header({autenticado, setAutenticado, usuarioAuth, setUsuarioAuth, token, setToken}) {
+export default function Header({autenticado, setAutenticado, usuarioAuth, setUsuarioAuth, token, setToken,
+   listaCarrito, setListaCarrito}) {
 
   const [showCarrito, setShowCarrito] = useState(false);
   const handleCloseCarrito = () => setShowCarrito(false);
@@ -26,7 +27,7 @@ export default function Header({autenticado, setAutenticado, usuarioAuth, setUsu
 
     return (
       <>
-        <Navbar className="pt-4 pb-4" bg="light" expand="lg">
+        <Navbar className="pt-4 pb-4 sticky-top" bg="light" expand="lg">
           <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle className="order-first" aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -65,6 +66,7 @@ export default function Header({autenticado, setAutenticado, usuarioAuth, setUsu
         <ModalCarrito
           showCarrito={showCarrito}
           handleCloseCarrito={handleCloseCarrito}
+          listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}          
         />
 
         <ModalUsuario

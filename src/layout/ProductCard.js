@@ -2,7 +2,21 @@ import React from 'react';
 import {Card, Button, ButtonGroup} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function ProductCard({prod}) {
+export default function ProductCard({prod, listaCarrito, setListaCarrito}) {
+
+    const agregarCarrito = (producto) =>{
+        if(listaCarrito.find(prod => prod._id === producto._id)){
+            alert('El producto ya se encuentra en el carrito');
+            return;
+        }
+        producto.cantidad = 1;
+        producto.subtotal = producto.cantidad * producto.precio      
+        setListaCarrito([
+            ...listaCarrito,
+            producto
+        ])
+    }
+
     return (
         <div className="item">
             <Card key={prod._id}>
@@ -22,7 +36,7 @@ export default function ProductCard({prod}) {
                             <Button variant="outline-success border-1">
                                 <FontAwesomeIcon icon={["fa", "info-circle"]}/>
                             </Button>
-                            <Button variant="outline-success border-1">
+                            <Button variant="outline-success border-1" onClick={() => agregarCarrito(prod)}>
                             <FontAwesomeIcon icon={["fa", "shopping-cart"]}/>
                             </Button>                                            
                         </ButtonGroup>

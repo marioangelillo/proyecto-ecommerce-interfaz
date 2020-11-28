@@ -56,10 +56,14 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [producto, setProducto] = useState({});
   const [productos, setProductos] = useState([]);
+  const [ listaCarrito , setListaCarrito ] = useState(JSON.parse(localStorage.getItem('listaCarrito')) || [])
 
-  //console.log(autenticado);
   //console.log(usuarioAuth);
-  
+  //console.log(listaCarrito);
+
+  useEffect(() => {
+    localStorage.setItem('listaCarrito', JSON.stringify(listaCarrito));
+  }, [listaCarrito])
 
   useEffect(() => {
     if(usuarioAuth) {
@@ -130,6 +134,7 @@ function App() {
       usuarioAuth={usuarioAuth} setUsuarioAuth={setUsuarioAuth}
       token={token} setToken={setToken}
       setIsAdmin={setIsAdmin}
+      listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}      
     />
     <BrowserRouter>
       <Switch>
@@ -137,15 +142,22 @@ function App() {
           path="/"
           exact          
           component={() =>
-          <Home 
-          productos={productos}
-          />
+            <Home 
+              productos={productos}
+              listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}
+            />
           }
         />
         <Route 
           path="/productos"
           exact
-          component={() => <Productos categorias={categorias} productos={productos} />}
+          component={() =>
+            <Productos
+              categorias={categorias}
+              productos={productos}
+              listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}             
+            />
+          }
         />
         <Route exact path="/registro">
           {

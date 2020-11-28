@@ -5,7 +5,7 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-export default function ProductosDestacados({productos}) {
+export default function ProductosDestacados({productos, listaCarrito, setListaCarrito}) {
 
     const options = {
         margin: 30,
@@ -47,7 +47,7 @@ export default function ProductosDestacados({productos}) {
             >
                 {productos.map(prod =>{
                     return(
-                        <ProductCard prod={prod} />
+                        <ProductCard prod={prod} listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}/>
                         
                     )
                 })}

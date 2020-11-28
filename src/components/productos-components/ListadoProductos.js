@@ -2,14 +2,14 @@ import React from 'react';
 import ProductCard from '../../layout/ProductCard';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 
-export default function ListadoProductos({productos}) {
+export default function ListadoProductos({productos, listaCarrito, setListaCarrito}) {
     return (
         <>
            <Row>
             {productos.map(prod =>{
                     return(
                         <Col xs={12} sm={6} md={4} lg={3}>
-                            <ProductCard prod={prod} />
+                            <ProductCard prod={prod} listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}/>
                         </Col>
                     )
                 })}

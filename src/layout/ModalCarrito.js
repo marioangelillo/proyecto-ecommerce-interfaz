@@ -4,11 +4,11 @@ import PagoCarrito from '../components/carrito-components/PagoCarrito';
 import FormularioCarrito from '../components/carrito-components/FormularioCarrito';
 import ProductosCarrito from '../components/carrito-components/ProductosCarrito';
 
-export default function ModalCarrito({showCarrito, handleCloseCarrito}) {
+export default function ModalCarrito({showCarrito, handleCloseCarrito, listaCarrito, setListaCarrito}) {
 
     const [key, setKey] = useState('home');
 
-    return (
+    return (      
         <Modal
             size="xl"
             show={showCarrito}
@@ -17,6 +17,7 @@ export default function ModalCarrito({showCarrito, handleCloseCarrito}) {
         <Modal.Header closeButton>
           <Modal.Title>Carrito de compras</Modal.Title>
         </Modal.Header>
+        {listaCarrito.length ?
         <Modal.Body>
             <Tabs
                 id="controlled-tab-example"
@@ -24,7 +25,7 @@ export default function ModalCarrito({showCarrito, handleCloseCarrito}) {
                 onSelect={(k) => setKey(k)}
                 >
                 <Tab eventKey="home" title="Productos">
-                    <ProductosCarrito />
+                    <ProductosCarrito listaCarrito={listaCarrito} setListaCarrito={setListaCarrito} />
                 </Tab>
                 <Tab eventKey="profile" title="Datos Comprador">
                     <FormularioCarrito />
@@ -34,6 +35,8 @@ export default function ModalCarrito({showCarrito, handleCloseCarrito}) {
                 </Tab>
             </Tabs>
         </Modal.Body>
+        : <h6 className="mx-auto my-4">El carrito de compras está vacío. <a href="/productos">Ver productos</a></h6>
+        }
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCarrito}>
             Close
