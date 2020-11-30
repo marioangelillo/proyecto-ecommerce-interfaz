@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Navbar, Nav, Form, FormControl, Button, Dropdown, ButtonGroup} from 'react-bootstrap';
+import {Navbar, Nav, Form, FormControl, Button, Dropdown, ButtonGroup, Badge} from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalCarrito from './ModalCarrito';
 import ModalUsuario from './ModalUsuario';
@@ -57,7 +57,10 @@ export default function Header({autenticado, setAutenticado, usuarioAuth, setUsu
                   </Dropdown.Menu>
                 </Dropdown>
                 }
-                <Button variant="outline-success" onClick={handleShowCarrito}><FontAwesomeIcon icon={["fa", "shopping-cart"]}/></Button>
+                <Button variant="outline-success" onClick={handleShowCarrito}>
+                  <FontAwesomeIcon icon={["fa", "shopping-cart"]}/>
+                  <Badge variant="outline-success">{listaCarrito.length}</Badge>
+                </Button>
               </ButtonGroup>
             </Form>
           </Navbar.Collapse>

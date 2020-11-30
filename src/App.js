@@ -2,6 +2,7 @@ import { Fragment, useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Header from './layout/Header';
+import VistaProducto from './layout/VistaProducto';
 import Footer from './layout/Footer';
 import Home from './components/Home';
 import Productos from './components/Productos';
@@ -159,6 +160,19 @@ function App() {
             />
           }
         />
+
+        <Route 
+          path="/productos/:producto"
+          exact
+          component={() =>
+            <VistaProducto
+              categorias={categorias}
+              productos={productos}
+              listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}             
+            />
+          }
+        />
+
         <Route exact path="/registro">
           {
             !autenticado ?

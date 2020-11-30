@@ -33,8 +33,8 @@ export default function ProductCard({prod, listaCarrito, setListaCarrito}) {
                         <h5 className="mt-1">${prod.precio}</h5>
 
                         <ButtonGroup aria-label="Basic example">
-                            <Button variant="outline-success border-1">
-                                <FontAwesomeIcon icon={["fa", "info-circle"]}/>
+                            <Button variant="outline-success border-1" onClick={() => window.location.href='/productos/'+prod.nombre}>
+                               <FontAwesomeIcon icon={["fa", "info-circle"]}/> 
                             </Button>
                             <Button variant="outline-success border-1" onClick={() => agregarCarrito(prod)}>
                             <FontAwesomeIcon icon={["fa", "shopping-cart"]}/>

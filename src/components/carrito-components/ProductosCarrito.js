@@ -3,6 +3,18 @@ import { Col, Container, Row, Card, Button, Table, Image, Form } from 'react-boo
 
 export default function ProductosCarrito({listaCarrito, setListaCarrito}) {
 
+    const [subtotal, setSubtotal] = useState();
+    const [total, setTotal] = useState()
+
+    useEffect(() => {
+        let suma = 0;
+        for (let i = 0; i < listaCarrito.length; i++) {
+            suma = suma + listaCarrito[i].subtotal;            
+        }
+        setSubtotal(suma);
+        setTotal(suma);
+        // decscuento setTotal(suma * 0.75);
+    }, [listaCarrito])
 
     const handleChangeCantidad = (producto) =>{         
        setListaCarrito([
@@ -98,13 +110,18 @@ export default function ProductosCarrito({listaCarrito, setListaCarrito}) {
 
                 <Col md={12} lg={4}>
                     <Card>
-                        <Card.Header as="h5">Featured</Card.Header>
+                        <Card.Header as="h5">RESUMEN COMPRA</Card.Header>
                         <Card.Body>
-                            <Card.Title>Special title treatment</Card.Title>
-                            <Card.Text>
-                            With supporting text below as a natural lead-in to additional content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
+                        <div className="d-flex mb-1 text-muted justify-content-between">
+                            <h5>Subtotal</h5>
+                            <h5>${subtotal}</h5>
+                        </div>
+                        <Button variant="primary btn-sm w-100 mb-3">Cupón de descuento</Button>
+                        <div className="d-flex justify-content-between">   
+                            <h4>Total</h4>
+                            <h4>${total}</h4>
+                        </div>
+                            
                         </Card.Body>
                     </Card>
                 </Col>
