@@ -3,11 +3,6 @@ import { Col, Container, Row, Card, Button, Table, Image, Form } from 'react-boo
 
 export default function ProductosCarrito({listaCarrito, setListaCarrito}) {
 
-    const [productoCarrito, setProductoCarrito] = useState();
-
-    useEffect(() => {
-        setProductoCarrito(listaCarrito[0]);
-    }, [])
 
     const handleChangeCantidad = (producto) =>{         
        setListaCarrito([
@@ -20,7 +15,7 @@ export default function ProductosCarrito({listaCarrito, setListaCarrito}) {
             )
        ])
        if(document.getElementById(producto._id).value > producto.stock){
-           alert('Actualmente contamos con '+producto.stock+' unidades unicamente');           
+           alert('Actualmente contamos con '+producto.stock+' unidades del producto '+producto.nombre+' unicamente');           
        }
         console.log(listaCarrito);
         
