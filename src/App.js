@@ -8,7 +8,7 @@ import Home from './components/Home';
 import Productos from './components/Productos';
 import Registro from './components/Registro';
 import Admin from './components/Admin';
-
+import ProductPage from './layout/ProductPage';
 
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -29,6 +29,7 @@ import {
 	faInstagramSquare,
 	faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
+
 
 library.add(faHeadset);
 library.add(faTruck);
@@ -162,15 +163,9 @@ function App() {
         />
 
         <Route 
-          path="/productos/:producto"
+          path="/productos/:id"
           exact
-          component={() =>
-            <VistaProducto
-              categorias={categorias}
-              productos={productos}
-              listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}             
-            />
-          }
+          component={(data) => <VistaProducto data={data} listaCarrito={listaCarrito} setListaCarrito={setListaCarrito}/>}
         />
 
         <Route exact path="/registro">

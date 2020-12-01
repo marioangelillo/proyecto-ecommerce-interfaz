@@ -5,28 +5,33 @@ import 'react-credit-cards/es/styles-compiled.css';
 
 export default function PagoCarrito() {
 
-    
-
-    const [number, setNumber] = useState('');
+    /*const [number, setNumber] = useState('');
     const [name, setName] = useState('');
     const [expiry, setExpiry] = useState('');
-    const [cvc, setCvc] = useState('');
+    const [cvc, setCvc] = useState('');*/
     const [focus, setFocus] = useState(''); 
 
-    /*const [card, setCard] = useState({
+    const [card, setCard] = useState({
       number: "",
       name: "",
       expiry: "",
       cvc: ""
     })
 
-    const {number, name, expiry, cvc} = card;*/
+    const {number, name, expiry, cvc} = card;
+
+    const handleChangeCard = (e) =>{
+      setCard({
+        ...card,
+        [e.target.name] : e.target.value
+      })
+    }
 
     return (
       <>  
         <Row className="mt-2">
           <Cards
-            className="col-12 col-md-6"
+            className="col-12 col-lg-6"
             cvc={cvc}
             expiry={expiry}
             focused={focus}
@@ -34,13 +39,13 @@ export default function PagoCarrito() {
             number={number}
           />
 
-          <form className="col-12 col-md-6 mt-2" id="form-pago">
+          <form className="col-12 col-lg-6 mt-2" id="form-pago">
             <input
-              className="form-control mb-2"
+              className="form-control mb-2 w-100"
               type="tel"
               name="number"
               value={number}
-              onChange={e => setNumber(e.target.value)}
+              onChange={handleChangeCard}
               onFocus={e => setFocus(e.target.name)}
               placeholder="Número de tarjeta"
             />
@@ -50,7 +55,7 @@ export default function PagoCarrito() {
               type="text"
               name="name"
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={handleChangeCard}
               onFocus={e => setFocus(e.target.name)}
               placeholder="Nombre y Apellido"
             />
@@ -60,7 +65,7 @@ export default function PagoCarrito() {
               type="text"
               name="expiry"
               value={expiry}
-              onChange={e => setExpiry(e.target.value)}
+              onChange={handleChangeCard}
               onFocus={e => setFocus(e.target.name)}
               placeholder="Fecha de expiración"
             />
@@ -71,18 +76,9 @@ export default function PagoCarrito() {
               name="cvc"
               placeholder="CVC"
               value={cvc}
-              onChange={e => setCvc(e.target.value)}
+              onChange={handleChangeCard}
               onFocus={e => setFocus(e.target.name)}
-            />
-
-            {/*<div className="float-right">
-              <Button type="button" variant="secondary">
-                Volver
-              </Button>
-              <Button type="submit" variant="primary ml-2">
-                Comprar
-              </Button>
-            </div>*/}
+            />           
 
           </form>
         </Row>
